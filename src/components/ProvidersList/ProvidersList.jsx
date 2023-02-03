@@ -1,9 +1,10 @@
 import {Box, List, ListItemButton, ListItemText} from "@mui/material";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
 export default function ProvidersList() {
-    const getItems = async () => {
-        const call = () => fetch('https://e9a2-109-229-29-226.eu.ngrok.io/' + 'providers', {
+    const [providers, setProviders] = useState([]);
+    const getItemsAsync = async () => {
+        const call = () => fetch('https://e9a2-109-229-29-226.eu.ngrok.io/providers', {
             method: "get",
             // headers: new Headers({
             //     'Content-Type': 'application/json',
@@ -14,13 +15,16 @@ export default function ProvidersList() {
         return res;
     }
 
-    let items = [];
-
-    useEffect(async () => {
-        items = await getItems();
+    useEffect( () => {
+        async function fetchMyAPI() {
+            let response = await getItemsAsync()
+            response = await response.json()
+            setProviders(response)
+        }
+        fetchMyAPI()
     }, [])
 
-    const listItems = items.map((provider) =>
+    const listItems = providers.map((provider) =>
         <ListItemButton key={provider.id}>
             <ListItemText primary={provider.name}/>
         </ListItemButton>
