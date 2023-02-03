@@ -4,14 +4,16 @@ import "./Menu.css"
 
 export default function Menu() {
     const navigate = useNavigate();
-    onclick = ()=>{
-        navigate('/providers')
-    }
-    return (
+
+const onClickProviders = () => {
+    navigate('/providers')
+};
+
+return (
         <div>
             <h1>Menu</h1>
             <div  id="parent" style={{flexDirection:"column", display:"flex", alignItems:"center", justifyContent:"space-between"}}>
-                <Button onClick={onclick} variant="contained">Providers</Button>
+                <Button onClick={onClickProviders} variant="contained">Providers</Button>
                 <Button variant="contained">Something else</Button>
                 <Button variant="contained">Something else</Button>
                 <Button variant="contained">Something else</Button>

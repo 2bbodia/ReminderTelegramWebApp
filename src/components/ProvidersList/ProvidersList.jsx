@@ -1,15 +1,24 @@
 import {Box, List, ListItemButton, ListItemText} from "@mui/material";
+import {useEffect} from "react";
 
 export default function ProvidersList() {
-    const getItems = () => {
-        return [
-            {id: 1, name: 'Chernivtsioblenergo'},
-            {id: 2, name: 'Prykarpatiaoblenergo'},
-            {id:3, name:'Ternopil'}
-        ]
+    const getItems = async () => {
+        const call = () => fetch('https://e9a2-109-229-29-226.eu.ngrok.io/' + 'providers', {
+            method: "get",
+            // headers: new Headers({
+            //     'Content-Type': 'application/json',
+            // }),
+        });
+
+        let res = await call();
+        return res;
     }
 
-    const items = getItems();
+    let items = [];
+
+    useEffect(async () => {
+        items = await getItems();
+    }, [])
 
     const listItems = items.map((provider) =>
         <ListItemButton key={provider.id}>
